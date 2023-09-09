@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/playlistFragment">
+    <fragment
+        android:id="@+id/playMusicFragment"
+        android:name="com.aman.musicplayer.MusicPlayerFragment"
+        android:label="fragment_play_music"
+        tools:layout="@layout/fragment_music_player" />
+    <fragment
+        android:id="@+id/playlistFragment"
+        android:name="com.aman.musicplayer.PlaylistFragment"
+        android:label="fragment_playlist"
+        tools:layout="@layout/fragment_playlist" >
+    </fragment>
+</navigation>

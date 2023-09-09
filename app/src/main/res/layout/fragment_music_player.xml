@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="musicContent"
+            type="com.aman.musicplayer.MusicContent" />
+        <variable
+            name="disableFirst"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/dp_40"
+        tools:context=".PlayMusic_Fragment">
+
+        <TextView
+            android:id="@+id/tvMusic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/musictitle"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvChoosenSongName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:hint="NAME OF THE SONG"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:text="@{musicContent.title}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMusic" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startTime" />
+
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@+id/seekBar"
+            app:layout_constraintTop_toBottomOf="@+id/tvChoosenSongName"
+            tools:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBaseline_toBaselineOf="@+id/startTime"
+            app:layout_constraintEnd_toEndOf="@+id/seekBar"
+            tools:hint="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/btnBackward"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="40dp"
+            android:padding="10dp"
+            android:src="@drawable/play_backward"
+            app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
+            app:layout_constraintEnd_toStartOf="@+id/btnPlay"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+        <ImageView
+            android:id="@+id/btnForward"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginEnd="40dp"
+            android:padding="10dp"
+            android:rotation="180"
+            android:src="@drawable/play_backward"
+            app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnPlay"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+        <ImageView
+            android:id="@+id/btnPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/ic_play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

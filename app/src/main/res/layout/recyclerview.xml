@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="musicContent"
+            type="com.aman.musicplayer.MusicContent" />
+        <variable
+            name="musicClick"
+            type="com.aman.musicplayer.MusicClick" />
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/tvMusicName"
+    android:hint="Music Name"
+    android:layout_weight="1"
+    android:drawableStart="@drawable/ic_music"
+    android:drawablePadding="10dp"
+    android:padding="10dp"
+    android:text="@{musicContent.title}"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivPlayPause"
+        android:padding="10dp"
+        android:onClick="@{()->musicClick.OnSongPlayClick(musicContent, position)}"
+        android:src="@{musicContent.playing? @drawable/ic_pause : @drawable/ic_play}"/>
+
+</LinearLayout>
+</layout>
