@@ -4,10 +4,10 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aman.musicplayer.databinding.FragmentPlaylistBinding
@@ -61,6 +61,10 @@ class PlaylistFragment : Fragment(), MusicClick {
         musicViewModel.musicContentList.observe(mainActivity){
             recyclerAdapter.updateList(it)
         }
+
+        musicViewModel.updateView.observe(mainActivity){
+            recyclerAdapter.notifyDataSetChanged()
+        }
     }
 
     companion object {
@@ -87,11 +91,13 @@ class PlaylistFragment : Fragment(), MusicClick {
         System.out.print("musicContent.storageLocation ${musicContent.storageLocation}")
         Log.e("TAG", "musicContent.storageLocation ${musicContent.storageLocation}")
         if(mainActivity.mediaPlayer.isPlaying){
-            mainActivity.mediaPlayer.stop()
+            mainActivity.musicList[mainActivity.currentPlayingPosition].isPlaying = false
+            mainActivity.mediaPlayer.pause()
+            recyclerAdapter.notifyDataSetChanged()
+        }else if(musicContent.storageLocation.isNotEmpty()) {
+            mainActivity.musicList[mainActivity.currentPlayingPosition].isPlaying = false
+            mainActivity.currentPlayingPosition = position
+            mainActivity.changeSong()
         }
-        mainActivity.mediaPlayer = MediaPlayer.create(mainActivity, Uri.parse(musicContent.storageLocation))
-        mainActivity.mediaPlayer.start()
-        mainActivity.musicList[position].isPlaying = true
-        musicViewModel.musicContentList.value = mainActivity.musicList
     }
 }

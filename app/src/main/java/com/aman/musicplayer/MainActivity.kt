@@ -2,12 +2,12 @@ package com.aman.musicplayer
 
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.media.MediaController2
 import android.media.MediaPlayer
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -47,12 +47,33 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemSelectedListener true
         }
 
-        navController.addOnDestinationChangedListener{_,destinationId,_,->
+        navController.addOnDestinationChangedListener{ _, destinationId, _ ->
             when(destinationId.id){
                 R.id.playlistFragment-> binding.bottomBar.menu.getItem(0).isChecked = true
                 R.id.playMusicFragment-> binding.bottomBar.menu.getItem(1).isChecked = true
             }
         }
+
+        mediaPlayer.setOnCompletionListener {
+            if(currentPlayingPosition < musicList.size - 2){
+                musicList[currentPlayingPosition].isPlaying = false
+                currentPlayingPosition++
+                changeSong()
+            }
+        }
+    }
+
+    fun changeSong(){
+        mediaPlayer.stop()
+        mediaPlayer.reset()
+        musicContent = musicList[currentPlayingPosition]
+        musicList[currentPlayingPosition].isPlaying = true
+        mediaPlayer.setDataSource(this, Uri.parse(musicContent?.storageLocation))
+        mediaPlayer.prepare()
+        mediaPlayer.start()
+        musicViewModel.musicContentList.value = musicList
+        musicViewModel.updateView.value = true
+
     }
 
     override fun onResume() {
