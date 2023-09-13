@@ -5,4 +5,5 @@
     <string name="playlist">PLAYLIST</string>
     <string name="playmusic">PLAY MUSIC</string>
     <string name="musictitle">MUSIC</string>
+    <string name="cannot_play_song">Sorry! cannot play this song</string>
 </resources>

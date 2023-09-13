@@ -6,6 +6,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -68,11 +69,15 @@ class MainActivity : AppCompatActivity() {
         mediaPlayer.reset()
         musicContent = musicList[currentPlayingPosition]
         musicList[currentPlayingPosition].isPlaying = true
-        mediaPlayer.setDataSource(this, Uri.parse(musicContent?.storageLocation))
-        mediaPlayer.prepare()
-        mediaPlayer.start()
-        musicViewModel.musicContentList.value = musicList
-        musicViewModel.updateView.value = true
+       try{
+           mediaPlayer.setDataSource(this, Uri.parse(musicContent?.storageLocation))
+           mediaPlayer.prepare()
+           mediaPlayer.start()
+           musicViewModel.musicContentList.value = musicList
+           musicViewModel.updateView.value = true
+       }catch(exception: Exception){
+           Toast.makeText(this, resources.getString(R.string.cannot_play_song), Toast.LENGTH_LONG).show()
+       }
 
     }
 
